@@ -1709,6 +1709,13 @@
             loading.style.display = 'flex';
             
             try {
+                // 현재 테마 확인
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark-blue';
+                const isWhiteTheme = currentTheme === 'white';
+                
+                // 테마에 따른 배경색 설정
+                const backgroundColor = isWhiteTheme ? '#FFFFFF' : '#0f172a';
+                
                 // 폰트 로딩 완료 대기
                 progress.textContent = '폰트 로딩 중...';
                 await waitForFonts();
@@ -1732,7 +1739,7 @@
                     height: '794px', 
                     zIndex: '-9999', 
                     overflow: 'hidden', 
-                    backgroundColor: '#0f172a' 
+                    backgroundColor: backgroundColor 
                 });
                 document.body.appendChild(captureContainer);
 
@@ -1830,7 +1837,7 @@
                                 allowTaint: true, // 외부 이미지 허용
                                 imageTimeout: 30000,
                                 logging: false,
-                                backgroundColor: '#0f172a',
+                                backgroundColor: backgroundColor,
                                 width: 1123,
                                 height: 794,
                                 windowWidth: 1123,
@@ -2056,7 +2063,14 @@
                         // 1. 폰트 설정 (개수가 많아지므로 크기를 20으로 살짝 줄임)
                         doc.setFontSize(16); 
                         doc.setFont("helvetica", "bold");
-                        doc.setTextColor(220, 220, 220); // 연한 회색
+                        
+                        // 테마에 따른 워터마크 색상 설정
+                        // 화이트 테마: 어두운 회색 (보이도록), 다크 테마: 연한 회색
+                        if (isWhiteTheme) {
+                            doc.setTextColor(180, 180, 180); // 화이트 테마용 어두운 회색
+                        } else {
+                            doc.setTextColor(220, 220, 220); // 다크 테마용 연한 회색
+                        }
 
                         // 2. 투명도 적용 (0.15 = 15% 불투명도)
                         try {
