@@ -3,73 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리포트 목록</title>
+    <title>K-PLAN PROJECT LIST</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
     <style>
         body { font-family: 'Noto Sans KR', sans-serif; }
-        
-        /* 로그인 레이어용 스타일 */
         .glass-panel {
             background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(59, 130, 246, 0.2);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        /* 모바일에서는 테이블 헤더 숨김 */
+        @media (max-width: 768px) {
+            .desktop-header { display: none; }
         }
     </style>
 </head>
-<body class="bg-[#0f172a] text-slate-200 min-h-screen flex flex-col items-center pt-20 px-4">
+<body class="bg-[#0f172a] text-slate-200 min-h-screen flex flex-col items-center pt-10 px-4 md:px-8">
 
     <div id="loginLayer" class="fixed inset-0 z-[99999] bg-[#0f172a] flex flex-col items-center justify-center p-4">
         <div class="max-w-sm w-full glass-panel p-8 rounded-2xl border border-slate-700 text-center shadow-2xl">
-            <h2 class="text-xl font-bold text-white mb-2">접속 권한 확인</h2>
-            <p class="text-slate-400 text-sm mb-6">관계자 외 접근을 제한합니다.</p>
+            <h2 class="text-xl font-bold text-white mb-2">PROJECT ARCHIVE</h2>
+            <p class="text-slate-400 text-sm mb-6">관계자 접속 승인 코드 입력</p>
             
             <input type="password" id="passwordInput" inputmode="numeric" pattern="[0-9]*" 
                    class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white mb-4 text-center tracking-widest focus:outline-none focus:border-blue-500 transition-colors" 
-                   placeholder="비밀번호 입력" 
+                   placeholder="CODE" 
                    onkeyup="if(window.event.keyCode==13){checkPassword()}">
             
-            <button onclick="checkPassword()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition-all shadow-lg hover:shadow-blue-500/30">
-                확인
+            <button onclick="checkPassword()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition-all shadow-lg">
+                ENTER
             </button>
-            
-            <p id="errorMsg" class="text-red-400 text-xs mt-4 hidden">⛔ 비밀번호가 일치하지 않습니다.</p>
+            <p id="errorMsg" class="text-red-400 text-xs mt-4 hidden">⛔ 코드가 일치하지 않습니다.</p>
         </div>
     </div>
 
-    <div id="mainContent" class="w-full max-w-2xl" style="display: none;">
+    <div id="mainContent" class="w-full max-w-6xl" style="display: none;">
         
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl font-bold text-white mb-2">PROJECT LIST</h1>
-            <p class="text-slate-400 text-sm">진행 중인 타당성 검토 보고서 목록</p>
+        <header class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-700 pb-6">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-black text-white tracking-tight">PROJECT LIST</h1>
+                <p class="text-slate-400 text-sm mt-2">타당성 검토 보고서 통합 관리</p>
+            </div>
+            <div class="text-right hidden md:block">
+                <p class="text-slate-500 text-xs">Total Projects</p>
+                <p class="text-2xl font-bold text-blue-400" id="projectCount">0</p>
+            </div>
         </header>
 
-        <div class="space-y-3">
+        <div class="w-full bg-slate-800/50 rounded-xl border border-slate-700 overflow-hidden backdrop-blur-sm">
             
-            <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 flex items-center justify-between hover:border-blue-500 transition-colors group">
-                <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                    <span class="text-slate-500 text-sm font-mono bg-slate-900 px-2 py-1 rounded">2025-12-14</span>
-                    <span class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">안성 가유 일반산업단지 보고서</span>
+            <div class="desktop-header grid grid-cols-12 gap-4 p-4 bg-slate-900/80 text-slate-400 text-sm font-bold border-b border-slate-700">
+                <div class="col-span-2 text-center">작성일자</div>
+                <div class="col-span-2 text-center">담당법인</div>
+                <div class="col-span-6 pl-4">보고서명</div>
+                <div class="col-span-2 text-center">바로가기</div>
+            </div>
+
+            <div id="projectList" class="divide-y divide-slate-700/50">
                 </div>
-                // 이곳에서 사이트에 넣을 글작성
-                <a href="https://kyle-a90.github.io/the-k-plangroup/ansung/index.html" class="whitespace-nowrap bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition-all ml-4">
-                    안성가유일반산업단지(작업중)기 &rarr;
-                </a>
-            </div>
 
-            </div>
+        </div>
 
-        <footer class="mt-12 text-center text-slate-500 text-xs">
+        <footer class="mt-12 text-center text-slate-500 text-xs py-8">
             COPYRIGHT © K-TECHNO VALLEY. ALL RIGHTS RESERVED.
         </footer>
     </div>
 
     <script>
-        // 🔑 비밀번호 설정 (여기서 변경하세요)
+        // ==================================================================
+        // 🛠️ [관리자 영역] 여기에 데이터를 추가하면 자동으로 줄이 생깁니다.
+        // ==================================================================
+        const projects = [
+            {
+                date: "2025-12-14",
+                corp: "한국팩토리",
+                title: "안성 가유 일반산업단지 보고서",
+                link: "ansung/index.html", // 연결할 파일 경로
+                status: "작업중" // 버튼에 표시될 텍스트
+            },
+            // 👇 새로운 보고서가 생기면 아래 양식을 복사해서 내용을 바꿔주세요
+            {
+                date: "2026-12-14", 
+                corp: "더케이부동산중개법인", 
+                title: "화성시 귀래리 공장매매", 
+                link: "hwaseong01/hwaseong.html", 
+                status: "예정" 
+            },
+        ];
+
+        // 🔑 비밀번호 설정
         const PASSWORD = "0401";
 
+
+        // ==================================================================
+        // 🚀 시스템 로직 (수정할 필요 없음)
+        // ==================================================================
+        
+        // 1. 초기화 및 렌더링
+        function init() {
+            renderProjects();
+            document.getElementById('passwordInput').focus();
+        }
+
+        // 2. 게시판 그리기 (PC/모바일 자동 대응)
+        function renderProjects() {
+            const listContainer = document.getElementById('projectList');
+            const countDisplay = document.getElementById('projectCount');
+            
+            // 프로젝트 개수 업데이트
+            countDisplay.innerText = projects.length;
+
+            let html = '';
+            projects.forEach(item => {
+                // 모바일/PC 반응형 HTML 생성
+                html += `
+                <div class="group hover:bg-slate-700/30 transition-colors duration-200">
+                    <div class="hidden md:grid grid-cols-12 gap-4 p-4 items-center">
+                        <div class="col-span-2 text-center text-slate-400 font-mono text-sm bg-slate-800/50 py-1 rounded mx-2">${item.date}</div>
+                        <div class="col-span-2 text-center text-blue-400 font-bold text-sm">${item.corp}</div>
+                        <div class="col-span-6 text-white font-bold text-lg pl-4 truncate cursor-pointer group-hover:text-blue-300" onclick="window.location.href='${item.link}'">
+                            ${item.title}
+                        </div>
+                        <div class="col-span-2 text-center">
+                            <a href="${item.link}" class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded transition-all shadow hover:shadow-lg hover:shadow-blue-500/20">
+                                ${item.status} &rarr;
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="md:hidden p-5 flex flex-col gap-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-500 text-xs font-mono bg-slate-900 px-2 py-1 rounded">${item.date}</span>
+                            <span class="text-blue-400 text-xs font-bold border border-blue-500/30 px-2 py-1 rounded-full">${item.corp}</span>
+                        </div>
+                        <div class="text-white font-bold text-lg leading-tight" onclick="window.location.href='${item.link}'">
+                            ${item.title}
+                        </div>
+                        <a href="${item.link}" class="mt-2 w-full text-center bg-slate-700 hover:bg-blue-600 text-slate-200 hover:text-white py-3 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2">
+                            <span>보고서 확인하기</span>
+                            <span>&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                `;
+            });
+            listContainer.innerHTML = html;
+        }
+
+        // 3. 비밀번호 체크
         function checkPassword() {
             const input = document.getElementById('passwordInput');
             const layer = document.getElementById('loginLayer');
@@ -77,13 +161,11 @@
             const errorMsg = document.getElementById('errorMsg');
 
             if (input.value === PASSWORD) {
-                // 비밀번호 일치 시
                 layer.style.opacity = "0";
                 layer.style.transition = "opacity 0.3s ease";
                 setTimeout(() => {
                     layer.style.display = "none";
                     main.style.display = "block";
-                    // 메인 컨테이너 등장 애니메이션
                     main.style.opacity = "0";
                     main.style.transform = "translateY(10px)";
                     main.style.transition = "all 0.5s ease";
@@ -93,7 +175,6 @@
                     }, 50);
                 }, 300);
             } else {
-                // 비밀번호 불일치 시
                 errorMsg.classList.remove('hidden');
                 input.classList.add('border-red-500', 'animate-pulse');
                 setTimeout(() => input.classList.remove('border-red-500', 'animate-pulse'), 1000);
@@ -102,11 +183,8 @@
             }
         }
 
-        // 페이지 로드 시 입력창에 포커스
-        window.onload = function() {
-            document.getElementById('passwordInput').focus();
-        }
+        // 실행
+        window.onload = init;
     </script>
-
 </body>
 </html>
