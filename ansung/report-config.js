@@ -12,7 +12,7 @@ const REPORT_CONFIG = {
         pageTitle: "안성 가유 일반산업단지 입지 및 투자 타당성 분석",
         copyright: "COPYRIGHT © 2025 K-TECHNO VALLEY. ALL RIGHTS RESERVED.",
         // 테마 설정: "dark-blue" 또는 "white"
-        theme: "white" // "dark-blue" 또는 "white"로 변경 가능
+        theme: "dark-blue" // "dark-blue" 또는 "white"로 변경 가능
     },
     
     pages: [
@@ -153,5 +153,6 @@ const REPORT_CONFIG = {
         }
     ]
 };
+
 
 
