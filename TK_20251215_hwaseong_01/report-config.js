@@ -19,7 +19,7 @@
                         title: "화성 정남면<br><span class='text-accent'>클린룸(Clean Room)</span><br>단독 공장 매매",
                         subtitle: "향남IC 5분 거리, 정남2산단 인근 인접지",
                         desc: "대지 1,436평 / 전력 900kW <strong class='text-red-600'>입주시기(협의가능)</strong>",
-                        proposerFirst: "주식회사 케이플랜 그룹", // 첫 번째 제안자 (옅은 회색 작은 글자로 표시, 비워두면 표시 안 함)
+                        proposerFirst: "케이플랜부동산 그룹", // 첫 번째 제안자 (옅은 회색 작은 글자로 표시, 비워두면 표시 안 함)
                         authorLabel: "제안자",
                         proposer: "더케이부동산중개법인 주식회사",
                         date: "DATE: 2025. 12. 15",
@@ -50,8 +50,8 @@
                     data: {
                         cards: [
                             { icon: "⚡", title: "POWER", value: "900", unit: "kW", desc: "대용량 전력 확보", sub: "승압 공사 비용 절감", color: "navy" },
-                            { icon: "🏭", title: "연 면적", value: "742", unit: "평", desc: "대형 클린룸 완비", sub: "", color: "navy" },
-                            { icon: "🏗️", title: "HOIST", value: "1.9", unit: "Ton", desc: "내부 호이스트 설치", sub: "물류 이동 효율 극대화", color: "navy" },
+                            { icon: "🏭", title: "연 면적", value: "742", unit: "평", desc: "일부 클린룸 시설 완비", sub: "", color: "navy" },
+                            { icon: "🏗️", title: "HOIST", value: "1.9", unit: "Ton", desc: "내부 호이스트 설치", sub: "", color: "navy" },
                             { icon: "💰", title: "PRICE", value: "54.6", unit: "억", desc: "합리적인 급매가", sub: "즉시 입주 가능", color: "red" }
                         ]
                     }
@@ -65,7 +65,7 @@
                         items: [
                             { title: "광역 교통망", desc: "• <strong>향남IC 5분 거리</strong>: 서해안고속도로 진입이 매우 용이하여 서울 및 수도권 물류 이동에 최적화된 위치입니다." },
                             { title: "산업 단지 인프라", desc: "• <strong>정남2산단 인근 위치</strong>: 오산, 동탄 접근성 우수" },
-                            { title: "토지 이용 규제", desc: "• <strong>계획관리지역 / 성장관리계획구역(산업)</strong><br>• 건폐율/용적률 인센티브 및 다양한 업종 입주가 가능한 효율적인 용도지역입니다." },
+                            { title: "토지 이용 규제", desc: "• <strong>계획관리지역 / 성장관리계획구역(산업)</strong>" },
                         ],
                         // 입지 관련 지도나 도로 이미지를 넣으면 좋습니다
                         imgUrl: "https://i.ibb.co/gLbhwqsD/20251213-132415.png",
@@ -114,7 +114,7 @@
                     type: 'conclusion',
                     data: {
                         title: "성공적인 비즈니스를 위한<br>최적의 클린룸 공장",
-                        desc: "전력 900kW, 300평 규모의 클린룸, 향남IC 5분의 입지.<br>즉시 가동 가능한 귀한 급매물입니다.",
+                        desc: "전력 900kW, 300평 규모의 클린룸, 향남IC 5분의 입지.",
                         
                         // 회사 정보
                         companyName: "더케이부동산중개법인 주식회사",
@@ -124,7 +124,7 @@
                         companyPhone: "031-8043-5250",
                         
                         // 담당자 정보
-                        contactTitle: "귀개리 공장 담당자 연결",
+                        contactTitle: "정남 귀래리 공장 담당자 연결",
                         mobile: "010-4923-5227",
                         email: "developer@koreaplan.kr",
                         contactPerson: "(주) 케이플랜 그룹 기획 담당: 황교재 이사"
