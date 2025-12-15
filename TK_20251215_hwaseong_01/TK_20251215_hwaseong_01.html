@@ -2058,12 +2058,20 @@
                         // 1. 폰트 설정 (개수가 많아지므로 크기를 20으로 살짝 줄임)
                         doc.setFontSize(16); 
                         doc.setFont("helvetica", "bold");
-                        doc.setTextColor(220, 220, 220); // 연한 회색
+                        
+                        // 테마에 따라 워터마크 색상 조정 (화이트 테마에서 더 진하게)
+                        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark-blue';
+                        if (currentTheme === 'white') {
+                            doc.setTextColor(180, 180, 180); // 화이트 테마용 진한 회색
+                        } else {
+                            doc.setTextColor(220, 220, 220); // 다크 테마용 연한 회색
+                        }
 
-                        // 2. 투명도 적용 (0.15 = 15% 불투명도)
+                        // 2. 투명도 적용 (화이트 테마에서 더 진하게)
                         try {
                             if (window.jspdf && window.jspdf.GState) {
-                                doc.setGState(new window.jspdf.GState({ opacity: 0.03 }));
+                                const opacity = currentTheme === 'white' ? 0.12 : 0.03; // 화이트 테마: 12%, 다크 테마: 3%
+                                doc.setGState(new window.jspdf.GState({ opacity: opacity }));
                             }
                         } catch (e) {}
                         
@@ -2136,4 +2144,3 @@
     </script>
 </body>
 </html>
-
